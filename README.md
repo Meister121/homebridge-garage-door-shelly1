@@ -4,6 +4,47 @@
 
 # homebridge-garage-door-shelly1
 
+## Shelly Plus 1: Digest authentication
+
+This fork adds curl-based HTTP Digest authentication for password-protected
+Shelly Plus 1 devices.
+
+### Requirements
+
+The `curl` executable must be installed and available to the Homebridge service.
+Its build must support Digest authentication with SHA-256.
+
+On Debian / DietPi:
+
+    sudo apt install curl
+
+### Configuration
+
+Add the Shelly credentials to the GarageDoorOpener accessory configuration:
+
+    "username": "admin",
+    "password": "YOUR_SHELLY_PASSWORD"
+
+These are the Shelly device credentials, not the HomeKit bridge credentials.
+Restart the accessory's child bridge after saving.
+
+### Compatibility and testing
+
+Opening and closing were successfully tested on a password-protected
+Shelly Plus 1 running with Homebridge on DietPi.
+
+This fork uses Digest authentication instead of the original Basic
+authentication implementation. Compatibility with password-protected
+first-generation Shelly devices has not been verified.
+
+Door-state polling and sensor configuration are separate from authentication
+and have not been validated as part of this change.
+
+### Implementation
+
+HTTP requests are executed using curl. Credentials are passed through
+standard input rather than command-line arguments.
+
 [![npm](https://img.shields.io/npm/v/homebridge-garage-door-shelly1.svg)](https://www.npmjs.com/package/homebridge-garage-door-shelly1) [![npm](https://img.shields.io/npm/dt/homebridge-garage-door-shelly1.svg)](https://www.npmjs.com/package/homebridge-garage-door-shelly1)
 
 This work is forked from https://github.com/andreaseu/homebridge-garage-remote-http. Kudos to Andreas.
